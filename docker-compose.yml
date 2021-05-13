@@ -1,0 +1,26 @@
+version: '2'
+services:
+    fuji-php-fpm:
+        build: php-fpm
+        container_name: fuji-php-fpm
+        ports:
+            - 9006:9000
+        volumes:
+            - ../:/var/www/html/
+    fuji-nginx:
+        build: nginx
+        container_name: fuji-nginx
+        ports:
+            - 8089:80
+        volumes:
+            - ../:/var/www/html/
+        links:
+            - fuji-php-fpm
+    # fuji-redis:
+    #     image: redis:5.0.6
+    #     container_name: fuji-redis
+    #     volumes:
+    #         - ./redis:/data
+    #     ports:
+    #         - "63791:6379"
+#        command: redis-server --appendonly yes
